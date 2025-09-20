@@ -10,7 +10,17 @@ class NetworkDevice:
         self.is_online = is_online
 
     def __str__(self):
-        base = f"IP: {self.ip}, MAC: {self.mac}, Hostname: {self.hostname}, Online: {self.is_online}"
-        if self.port is not None:
-            base += f", Port: {self.port}"
-        return base
+        return (
+            f"{self.ip:<15} | {self.mac:<17} | "
+            f"{(self.hostname or 'N/A'):<25}"
+            + (f" | Port: {self.port}" if self.port else "")
+        )
+
+    def to_dict(self):
+        return {
+            "ip": self.ip,
+            "mac": self.mac,
+            "hostname": self.hostname,
+            "is_online": self.is_online,
+            "port": self.port
+        }
